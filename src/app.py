@@ -8,17 +8,17 @@ from importlib import import_module
 
 dotenv.load_dotenv()
 
-connect(host=f"mongodb+srv://{os.getenv('MONGO_USER')}:{os.getenv('MONGO_PWD')}@clusteraula.0pv1o.mongodb.net/?retryWrites=true&w=majority&appName=ClusterAula")
+connect(host=f"mongodb+srv://{os.getenv('MONGO_USER')}:{os.getenv('MONGO_PWD')}@cluster0.oaeuf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 app = FastAPI()
 
-@app.get("/")
+@app.get("/teste")
 def test():
     return {"status": "OK v2 (3)"}
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],          # URL do front-end permitido
+    allow_origins=[""],          # URL do front-end permitido
     allow_credentials=True,                  # Permitir envio de cookies ou headers de autenticação
     allow_methods=["*"],                     # Permitir todos os métodos HTTP (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],                     # Permitir todos os headers
@@ -32,10 +32,10 @@ use_cases_directory = os.path.join(working_directory, "use_cases")
 
 # Procura recursivamente por arquivos index.py dentro dos diretórios de casos de uso
 routes = glob.glob(os.path.join(use_cases_directory, "**/index.py"), recursive=True)
-
 # Importa e registra automaticamente as rotas definidas em cada arquivo index.py
 for route in routes:
     # Converte o caminho do arquivo em um nome de módulo relativo
+    print(route)
     relative_path = os.path.relpath(route, working_directory)
     module_name = os.path.splitext(relative_path)[0].replace(os.path.sep, '.')
     try:
